@@ -68,9 +68,9 @@ export default function MonitoringPage() {
                         <AlertTriangle className="w-4 h-4 text-muted-foreground" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem>Details anzeigen</DropdownMenuItem>
-                        <DropdownMenuItem>Alarm einstellen</DropdownMenuItem>
-                        <DropdownMenuItem>Konfigurieren</DropdownMenuItem>
+                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                        <DropdownMenuItem>Set Alert</DropdownMenuItem>
+                        <DropdownMenuItem>Configure</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -98,13 +98,14 @@ export default function MonitoringPage() {
         >
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Echtzeit-Überwachung</CardTitle>
+              <CardTitle>Real-time Monitoring</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {sensors.map((sensor) => (
                   <div key={sensor.id} 
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
                     <div className="flex items-center space-x-3">
                       <sensor.icon className={`w-5 h-5 ${sensor.color}`} />
                       <span>{sensor.name}</span>
@@ -121,11 +122,15 @@ export default function MonitoringPage() {
 
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Alarm-Historie</CardTitle>
+              <CardTitle>Alert History</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {[...Array(3)].map((_, i) => (
+                {[
+                  { time: '2h ago', issue: 'Temperature Alert', location: 'Main Building' },
+                  { time: '4h ago', issue: 'Humidity Warning', location: 'Conference Room' },
+                  { time: '6h ago', issue: 'Air Quality Notice', location: 'Restaurant Area' }
+                ].map((alert, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
@@ -135,9 +140,12 @@ export default function MonitoringPage() {
                   >
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                      <span>Temperatur-Alarm</span>
+                      <div>
+                        <p className="font-medium">{alert.issue}</p>
+                        <p className="text-sm text-gray-500">{alert.location}</p>
+                      </div>
                     </div>
-                    <span className="text-sm text-muted-foreground">vor 2h</span>
+                    <span className="text-sm text-muted-foreground">{alert.time}</span>
                   </motion.div>
                 ))}
               </div>
@@ -152,17 +160,17 @@ export default function MonitoringPage() {
         >
           <Card className="card-hover-effect h-full">
             <CardHeader>
-              <CardTitle>Systemübersicht</CardTitle>
+              <CardTitle>System Overview</CardTitle>
             </CardHeader>
             <CardContent>
               <SystemDiagram />
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <div className="p-3 bg-gray-50 rounded-lg">
-                  <p className="text-sm font-medium text-muted-foreground">Gesamtauslastung</p>
+                  <p className="text-sm font-medium text-muted-foreground">System Load</p>
                   <p className="text-lg font-bold text-blue-500">72%</p>
                 </div>
                 <div className="p-3 bg-gray-50 rounded-lg">
-                  <p className="text-sm font-medium text-muted-foreground">Aktive Systeme</p>
+                  <p className="text-sm font-medium text-muted-foreground">Active Systems</p>
                   <p className="text-lg font-bold text-green-500">6/7</p>
                 </div>
               </div>

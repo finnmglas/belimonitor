@@ -1,149 +1,140 @@
-import { Building2, ThermometerSun, Wind, Droplets, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Building2, Users, Thermometer, Zap } from 'lucide-react';
 
 const buildings = [
   {
     id: 1,
-    name: 'Hilton Downtown',
-    location: '123 Main Street, New York',
-    rooms: 450,
+    name: 'Main Building',
+    location: '123 Business Street',
+    occupancy: '85%',
+    temperature: '22°C',
+    energy: '280 kWh/m²',
     status: 'optimal',
-    metrics: {
-      temperature: '21.5°C',
-      humidity: '45%',
-      energy: '250 kWh',
-      water: '1,200 L'
-    },
-    savings: {
-      co2: '1,200 kg',
-      cost: '€1,500'
-    }
   },
   {
     id: 2,
-    name: 'Hilton Business Center',
-    location: '456 Park Avenue, Chicago',
-    rooms: 300,
+    name: 'Conference Center',
+    location: '456 Meeting Avenue',
+    occupancy: '60%',
+    temperature: '23°C',
+    energy: '220 kWh/m²',
     status: 'warning',
-    metrics: {
-      temperature: '23.8°C',
-      humidity: '52%',
-      energy: '180 kWh',
-      water: '800 L'
-    },
-    savings: {
-      co2: '800 kg',
-      cost: '€950'
-    }
   },
   {
     id: 3,
-    name: 'Hilton Resort & Spa',
-    location: '789 Beach Road, Miami',
-    rooms: 600,
+    name: 'Restaurant Building',
+    location: '789 Dining Road',
+    occupancy: '90%',
+    temperature: '24°C',
+    energy: '310 kWh/m²',
+    status: 'attention',
+  },
+  {
+    id: 4,
+    name: 'Wellness Center',
+    location: '321 Spa Lane',
+    occupancy: '75%',
+    temperature: '25°C',
+    energy: '260 kWh/m²',
     status: 'optimal',
-    metrics: {
-      temperature: '22.1°C',
-      humidity: '48%',
-      energy: '320 kWh',
-      water: '1,500 L'
-    },
-    savings: {
-      co2: '1,700 kg',
-      cost: '€2,100'
-    }
-  }
+  },
 ];
 
-export default function Buildings() {
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'optimal':
+      return 'bg-green-500';
+    case 'warning':
+      return 'bg-yellow-500';
+    case 'attention':
+      return 'bg-red-500';
+    default:
+      return 'bg-gray-500';
+  }
+};
+
+export default function BuildingsPage() {
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-          Building Management
-        </h1>
-        <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
-          <Building2 className="w-5 h-5 mr-2" />
+    <div className="p-6 space-y-6 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Buildings Overview</h1>
+          <p className="text-gray-500 mt-1">Monitor and manage building performance</p>
+        </div>
+        <button className="px-4 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors">
           Add Building
         </button>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {buildings.map((building) => (
-          <div 
+          <motion.div
             key={building.id}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            <div className="p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    {building.name}
-                  </h2>
-                  <p className="text-gray-500 dark:text-gray-400 mt-1">
-                    {building.location}
-                  </p>
+            <Card className="card-hover-effect">
+              <CardContent className="pt-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="font-medium text-gray-900">{building.name}</h3>
+                    <p className="text-sm text-gray-500">{building.location}</p>
+                  </div>
+                  <div className={`w-3 h-3 rounded-full ${getStatusColor(building.status)}`} />
                 </div>
-                <span 
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    building.status === 'optimal' 
-                      ? 'bg-green-100 text-green-800 dark:bg-green-800/30 dark:text-green-400'
-                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-400'
-                  }`}
-                >
-                  {building.status === 'optimal' ? 'Running Optimally' : 'Needs Attention'}
-                </span>
-              </div>
 
-              <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                  <ThermometerSun className="w-5 h-5 text-orange-500" />
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Temperature</div>
-                    <div className="font-medium text-gray-900 dark:text-white">{building.metrics.temperature}</div>
+                <div className="mt-4 space-y-3">
+                  <div className="flex items-center text-sm">
+                    <Users className="w-4 h-4 text-gray-400 mr-2" />
+                    <span className="text-gray-600">Occupancy:</span>
+                    <span className="ml-auto font-medium">{building.occupancy}</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Thermometer className="w-4 h-4 text-gray-400 mr-2" />
+                    <span className="text-gray-600">Temperature:</span>
+                    <span className="ml-auto font-medium">{building.temperature}</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Zap className="w-4 h-4 text-gray-400 mr-2" />
+                    <span className="text-gray-600">Energy Usage:</span>
+                    <span className="ml-auto font-medium">{building.energy}</span>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                  <Wind className="w-5 h-5 text-blue-500" />
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Humidity</div>
-                    <div className="font-medium text-gray-900 dark:text-white">{building.metrics.humidity}</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                  <Zap className="w-5 h-5 text-yellow-500" />
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Energy Usage</div>
-                    <div className="font-medium text-gray-900 dark:text-white">{building.metrics.energy}</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                  <Droplets className="w-5 h-5 text-blue-500" />
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Water Usage</div>
-                    <div className="font-medium text-gray-900 dark:text-white">{building.metrics.water}</div>
-                  </div>
-                </div>
-              </div>
 
-              <div className="mt-6 flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex space-x-8">
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">CO2 Savings</div>
-                    <div className="font-medium text-green-600 dark:text-green-400">{building.savings.co2}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Cost Savings</div>
-                    <div className="font-medium text-green-600 dark:text-green-400">{building.savings.cost}</div>
-                  </div>
-                </div>
-                <button className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 font-medium">
-                  View Details →
+                <button className="w-full mt-4 px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-full transition-colors">
+                  View Details
                 </button>
-              </div>
-            </div>
-          </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         ))}
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Building Performance Summary</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-500">Average Energy Usage</p>
+              <p className="text-2xl font-bold text-primary mt-1">267.5 kWh/m²</p>
+              <p className="text-sm text-gray-500 mt-1">Across all buildings</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-500">Total Occupancy</p>
+              <p className="text-2xl font-bold text-primary mt-1">77.5%</p>
+              <p className="text-sm text-gray-500 mt-1">Average utilization</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-500">Building Status</p>
+              <p className="text-2xl font-bold text-primary mt-1">2/4</p>
+              <p className="text-sm text-gray-500 mt-1">Buildings need attention</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
