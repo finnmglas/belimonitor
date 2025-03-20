@@ -48,9 +48,10 @@ export default function Header() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-primary font-bold text-xl"
+                className="flex items-center"
               >
-                EcoControl
+                <span className="text-xl font-bold text-blue-600">BELIMO</span>
+                <span className="text-xl font-medium text-gray-900">nitor</span>
               </motion.div>
             </Link>
           </div>
