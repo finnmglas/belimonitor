@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import OptimizationTable from '@/components/optimization/OptimizationTable';
 import OptimizationModal from '@/components/optimization/OptimizationModal';
+import { DollarSign, Leaf } from 'lucide-react';
 import { useState } from 'react';
 
 export default function BelimoOptimizePage() {
@@ -20,10 +21,20 @@ export default function BelimoOptimizePage() {
               Identified optimization potential and recommended actions
             </p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <div className="text-right">
-              <p className="text-sm text-gray-500">Total Savings Potential</p>
-              <p className="text-2xl font-bold text-green-500">€450/month</p>
+              <p className="text-sm text-gray-500">Monthly CO₂ Savings</p>
+              <div className="flex items-center justify-end mt-1">
+                <Leaf className="w-5 h-5 text-green-500 mr-2" />
+                <p className="text-2xl font-bold text-green-500">940 kg</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">Monthly Cost Savings</p>
+              <div className="flex items-center justify-end mt-1">
+                <DollarSign className="w-5 h-5 text-green-500 mr-2" />
+                <p className="text-2xl font-bold text-green-500">€515</p>
+              </div>
             </div>
           </div>
         </div>

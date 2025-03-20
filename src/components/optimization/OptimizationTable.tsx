@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
-import { AlertTriangle, AlertCircle, AlertOctagon, Lock, ChevronRight, Zap } from 'lucide-react';
+import { AlertTriangle, AlertCircle, AlertOctagon, Lock, ChevronRight, Zap, DollarSign, Leaf } from 'lucide-react';
 
 interface OptimizationItem {
   id: string;
@@ -9,6 +9,7 @@ interface OptimizationItem {
   location: string;
   co2Savings: string;
   costSavings: string;
+  optimizationPotential: number;
   isPremium?: boolean;
 }
 
@@ -18,24 +19,27 @@ const optimizations: OptimizationItem[] = [
     priority: 'high',
     problem: 'Unnecessary heating at night',
     location: 'Building A, Room 203',
-    co2Savings: '120 kg/week',
+    co2Savings: '480 kg/month',
     costSavings: '€250/month',
+    optimizationPotential: 85,
   },
   {
     id: '2',
     priority: 'medium',
     problem: 'Excess temperature on weekends',
     location: 'Building B, Room 5',
-    co2Savings: '60 kg/week',
+    co2Savings: '240 kg/month',
     costSavings: '€120/month',
+    optimizationPotential: 65,
   },
   {
     id: '3',
     priority: 'low',
     problem: 'Inefficient ventilation',
     location: 'Building C, Hall 2',
-    co2Savings: '30 kg/week',
+    co2Savings: '120 kg/month',
     costSavings: '€80/month',
+    optimizationPotential: 35,
     isPremium: true,
   },
   {
@@ -43,8 +47,9 @@ const optimizations: OptimizationItem[] = [
     priority: 'low',
     problem: 'Lighting optimization',
     location: 'Building A, Corridor',
-    co2Savings: '25 kg/week',
+    co2Savings: '100 kg/month',
     costSavings: '€65/month',
+    optimizationPotential: 25,
     isPremium: true,
   },
 ];
@@ -75,9 +80,38 @@ const getPriorityColor = (priority: string) => {
   }
 };
 
+const getPriorityText = (priority: string) => {
+  switch (priority) {
+    case 'high':
+      return 'High optimization potential';
+    case 'medium':
+      return 'Medium optimization potential';
+    case 'low':
+      return 'Low optimization potential';
+    default:
+      return '';
+  }
+};
+
 export default function OptimizationTable() {
   return (
     <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        {['high', 'medium', 'low'].map((priority) => (
+          <Card key={priority} className={`p-4 ${getPriorityColor(priority)} border-2`}>
+            <div className="flex items-center space-x-3">
+              {getPriorityIcon(priority)}
+              <div>
+                <p className="text-sm font-medium text-gray-900">{getPriorityText(priority)}</p>
+                <p className="text-xs text-gray-500">
+                  {priority === 'high' ? '> 70%' : priority === 'medium' ? '40-70%' : '< 40%'}
+                </p>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+
       {optimizations.map((item, index) => (
         <motion.div
           key={item.id}
@@ -96,14 +130,36 @@ export default function OptimizationTable() {
                 <p className="text-sm text-gray-500">{item.location}</p>
               </div>
               <div className="col-span-2">
-                <p className="text-sm font-medium text-gray-900">{item.co2Savings}</p>
-                <p className="text-xs text-gray-500">CO₂ Savings</p>
+                <div className="flex items-center space-x-1">
+                  <Leaf className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-medium text-gray-900">{item.co2Savings}</p>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">Monthly CO₂ Savings</p>
               </div>
               <div className="col-span-2">
-                <p className="text-sm font-medium text-gray-900">{item.costSavings}</p>
-                <p className="text-xs text-gray-500">Cost Savings</p>
+                <div className="flex items-center space-x-1">
+                  <DollarSign className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-medium text-gray-900">{item.costSavings}</p>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">Monthly Cost Savings</p>
               </div>
-              <div className="col-span-4 flex justify-end">
+              <div className="col-span-4 flex justify-end items-center space-x-4">
+                <div className="flex-1">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-gray-500">Optimization Potential</span>
+                    <span className="font-medium">{item.optimizationPotential}%</span>
+                  </div>
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full ${
+                        item.optimizationPotential > 70 ? 'bg-red-500' :
+                        item.optimizationPotential > 40 ? 'bg-orange-500' :
+                        'bg-yellow-500'
+                      }`}
+                      style={{ width: `${item.optimizationPotential}%` }}
+                    />
+                  </div>
+                </div>
                 {item.isPremium ? (
                   <button className="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-gray-100 rounded-full">
                     <Lock className="w-4 h-4 mr-2" />
