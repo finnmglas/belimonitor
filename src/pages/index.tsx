@@ -16,21 +16,118 @@ import {
   Bar,
 } from 'recharts';
 
-// ... (keep all the existing metrics, data, and helper functions)
+const metrics = [
+  { 
+    title: 'Energy Usage', 
+    value: '245 kWh', 
+    change: '-12%', 
+    icon: LineChart, 
+    color: 'text-blue-500',
+    description: 'vs. previous month' 
+  },
+  { 
+    title: 'Cost Savings', 
+    value: '€1,234', 
+    change: '+15%', 
+    icon: TrendingUp, 
+    color: 'text-green-500',
+    description: 'monthly improvement'
+  },
+  { 
+    title: 'CO2 Reduction', 
+    value: '2.5 tons', 
+    change: '-8%', 
+    icon: Activity, 
+    color: 'text-purple-500',
+    description: 'carbon footprint'
+  },
+  { 
+    title: 'Efficiency Score', 
+    value: '92%', 
+    change: '+5%', 
+    icon: BarChart2, 
+    color: 'text-orange-500',
+    description: 'system performance'
+  },
+];
+
+const energyData = [
+  { name: 'Jan 1', value: 320 },
+  { name: 'Jan 15', value: 300 },
+  { name: 'Feb 1', value: 310 },
+  { name: 'Feb 15', value: 290 },
+  { name: 'Mar 1', value: 280 },
+  { name: 'Mar 15', value: 265 },
+  { name: 'Apr 1', value: 245 },
+];
+
+const dailyLoadData = [
+  { time: '00:00', load: 30 },
+  { time: '04:00', load: 25 },
+  { time: '08:00', load: 65 },
+  { time: '12:00', load: 85 },
+  { time: '16:00', load: 70 },
+  { time: '20:00', load: 45 },
+  { time: '23:59', load: 35 },
+];
+
+// High priority optimizations
+const urgentOptimizations = [
+  {
+    issue: 'HVAC System Optimization Required',
+    location: 'Main Building, Floors 1-3',
+    savings: '€4,000/month',
+    co2: '6,400 kg/month',
+  },
+  {
+    issue: 'Excess Heating in Restaurant Area',
+    location: 'Restaurant & Bar, Ground Floor',
+    savings: '€2,000/month',
+    co2: '3,200 kg/month',
+  },
+];
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-3 rounded-lg shadow-lg border">
+        <p className="text-sm font-medium">{label}</p>
+        <p className="text-sm text-blue-500">
+          Energy: {payload[0].value} kWh
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const LoadTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-3 rounded-lg shadow-lg border">
+        <p className="text-sm font-medium">{label}</p>
+        <p className="text-sm text-green-500">
+          System Load: {payload[0].value}%
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function IndexPage() {
   return (
     <div className="p-6 space-y-8 max-w-7xl mx-auto">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
-      >
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {metrics.map((metric, index) => {
           const Icon = metric.icon;
           return (
-            <motion.div key={metric.title} variants={item}>
+            <motion.div 
+              key={metric.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
               <Card className="card-hover-effect">
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between">
@@ -52,7 +149,7 @@ export default function IndexPage() {
             </motion.div>
           );
         })}
-      </motion.div>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <motion.div
