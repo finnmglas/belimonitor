@@ -1,13 +1,14 @@
-import { RouterProvider } from "react-router-dom";
-import "./index.css";
-import { router } from "./routes";
+import { Outlet } from 'react-router-dom';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <div className="min-h-screen">
-      <RouterProvider router={router} />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
-};
+}
 
 export default App;
