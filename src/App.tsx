@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import Header from './components/layout/Header';
+import Header from '@/components/layout/Header';
 import './App.css';
 
 function App() {
