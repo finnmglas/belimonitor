@@ -7,43 +7,102 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ComposedChart,
+  Line,
+  Bar,
+  Legend
+} from 'recharts';
 
 const optimizations = [
   {
     id: 1,
-    title: 'HVAC Optimization',
+    title: 'HVAC Optimierung',
     savings: '15%',
     status: 'active',
-    nextAction: 'Temperature adjustment at 18:00',
+    nextAction: 'Temperaturanpassung um 18:00',
     icon: Zap,
     color: 'text-blue-500',
   },
   {
     id: 2,
-    title: 'Lighting Schedule',
+    title: 'Beleuchtungsplan',
     savings: '8%',
     status: 'pending',
-    nextAction: 'Dim lights in 30 minutes',
+    nextAction: 'Dimmen in 30 Minuten',
     icon: TrendingUp,
     color: 'text-green-500',
   },
   {
     id: 3,
-    title: 'Peak Load Management',
+    title: 'Spitzenlast-Management',
     savings: '12%',
     status: 'active',
-    nextAction: 'Load balancing in progress',
+    nextAction: 'Lastausgleich läuft',
     icon: Clock,
     color: 'text-purple-500',
   },
   {
     id: 4,
-    title: 'Battery Storage',
+    title: 'Batteriespeicher',
     savings: '20%',
     status: 'charging',
-    nextAction: 'Full charge in 2 hours',
+    nextAction: 'Vollladung in 2 Stunden',
     icon: Battery,
     color: 'text-orange-500',
+  },
+];
+
+// Forecast data for the next 6 months
+const forecastData = [
+  {
+    month: 'Apr',
+    actual: 1200,
+    forecast: 1200,
+    savings: 0,
+    efficiency: 85,
+  },
+  {
+    month: 'Mai',
+    actual: 1150,
+    forecast: 1180,
+    savings: 30,
+    efficiency: 87,
+  },
+  {
+    month: 'Jun',
+    actual: null,
+    forecast: 1100,
+    savings: 80,
+    efficiency: 89,
+  },
+  {
+    month: 'Jul',
+    actual: null,
+    forecast: 1050,
+    savings: 130,
+    efficiency: 91,
+  },
+  {
+    month: 'Aug',
+    actual: null,
+    forecast: 980,
+    savings: 200,
+    efficiency: 93,
+  },
+  {
+    month: 'Sep',
+    actual: null,
+    forecast: 920,
+    savings: 280,
+    efficiency: 95,
   },
 ];
 
@@ -60,6 +119,23 @@ const container = {
 const item = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0 }
+};
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-4 rounded-lg shadow-lg border">
+        <p className="text-sm font-medium mb-2">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <p key={index} className="text-sm" style={{ color: entry.color }}>
+            {entry.name}: {entry.value}
+            {entry.name === 'Effizienz' ? '%' : '€'}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
 };
 
 export default function OptimizationPage() {
@@ -86,9 +162,9 @@ export default function OptimizationPage() {
                         <MoreVertical className="w-4 h-4 text-muted-foreground" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
-                        <DropdownMenuItem>Adjust Settings</DropdownMenuItem>
-                        <DropdownMenuItem>Disable</DropdownMenuItem>
+                        <DropdownMenuItem>Details anzeigen</DropdownMenuItem>
+                        <DropdownMenuItem>Einstellungen anpassen</DropdownMenuItem>
+                        <DropdownMenuItem>Deaktivieren</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -120,7 +196,7 @@ export default function OptimizationPage() {
         >
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Optimization Schedule</CardTitle>
+              <CardTitle>Optimierungsplan</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -155,30 +231,74 @@ export default function OptimizationPage() {
         >
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Energy Savings Forecast</CardTitle>
+              <CardTitle>Energieeinsparungsprognose</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                <div className="h-[200px] bg-gray-50 rounded-lg flex items-center justify-center">
-                  Forecast Chart
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <ComposedChart
+                    data={forecastData}
+                    margin={{
+                      top: 20,
+                      right: 30,
+                      left: 20,
+                      bottom: 20,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                    <XAxis dataKey="month" />
+                    <YAxis yAxisId="left" />
+                    <YAxis yAxisId="right" orientation="right" />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    <Area
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="actual"
+                      fill="#3b82f6"
+                      stroke="#3b82f6"
+                      name="Aktuell"
+                      fillOpacity={0.3}
+                    />
+                    <Area
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="forecast"
+                      fill="#22c55e"
+                      stroke="#22c55e"
+                      name="Prognose"
+                      fillOpacity={0.3}
+                    />
+                    <Bar
+                      yAxisId="left"
+                      dataKey="savings"
+                      fill="#8b5cf6"
+                      name="Einsparungen"
+                      opacity={0.8}
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="efficiency"
+                      stroke="#f59e0b"
+                      name="Effizienz"
+                      strokeWidth={2}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-6 grid grid-cols-3 gap-4">
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <p className="text-2xl font-bold text-green-500">45%</p>
+                  <p className="text-sm text-muted-foreground">Tagesziel</p>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {[
-                    { label: 'Daily Target', value: '45%', color: 'text-green-500' },
-                    { label: 'Monthly Savings', value: '€1,234', color: 'text-blue-500' },
-                    { label: 'Efficiency', value: '92%', color: 'text-purple-500' },
-                  ].map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + (i * 0.1) }}
-                      className="text-center p-4 bg-gray-50 rounded-lg"
-                    >
-                      <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                      <p className="text-sm text-muted-foreground">{stat.label}</p>
-                    </motion.div>
-                  ))}
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <p className="text-2xl font-bold text-blue-500">€1.234</p>
+                  <p className="text-sm text-muted-foreground">Monatliche Einsparungen</p>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <p className="text-2xl font-bold text-purple-500">92%</p>
+                  <p className="text-sm text-muted-foreground">Effizienz</p>
                 </div>
               </div>
             </CardContent>
