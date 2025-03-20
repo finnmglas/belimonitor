@@ -24,37 +24,37 @@ import {
 const optimizations = [
   {
     id: 1,
-    title: 'HVAC Optimierung',
+    title: 'HVAC Optimization',
     savings: '15%',
     status: 'active',
-    nextAction: 'Temperaturanpassung um 18:00',
+    nextAction: 'Temperature adjustment at 18:00',
     icon: Zap,
     color: 'text-blue-500',
   },
   {
     id: 2,
-    title: 'Beleuchtungsplan',
+    title: 'Lighting Schedule',
     savings: '8%',
     status: 'pending',
-    nextAction: 'Dimmen in 30 Minuten',
+    nextAction: 'Dim lights in 30 minutes',
     icon: TrendingUp,
     color: 'text-green-500',
   },
   {
     id: 3,
-    title: 'Spitzenlast-Management',
+    title: 'Peak Load Management',
     savings: '12%',
     status: 'active',
-    nextAction: 'Lastausgleich läuft',
+    nextAction: 'Load balancing in progress',
     icon: Clock,
     color: 'text-purple-500',
   },
   {
     id: 4,
-    title: 'Batteriespeicher',
+    title: 'Battery Storage',
     savings: '20%',
     status: 'charging',
-    nextAction: 'Vollladung in 2 Stunden',
+    nextAction: 'Full charge in 2 hours',
     icon: Battery,
     color: 'text-orange-500',
   },
@@ -70,7 +70,7 @@ const forecastData = [
     efficiency: 85,
   },
   {
-    month: 'Mai',
+    month: 'May',
     actual: 1150,
     forecast: 1180,
     savings: 30,
@@ -129,7 +129,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         {payload.map((entry: any, index: number) => (
           <p key={index} className="text-sm" style={{ color: entry.color }}>
             {entry.name}: {entry.value}
-            {entry.name === 'Effizienz' ? '%' : '€'}
+            {entry.name === 'Efficiency' ? '%' : '€'}
           </p>
         ))}
       </div>
@@ -162,9 +162,9 @@ export default function OptimizationPage() {
                         <MoreVertical className="w-4 h-4 text-muted-foreground" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem>Details anzeigen</DropdownMenuItem>
-                        <DropdownMenuItem>Einstellungen anpassen</DropdownMenuItem>
-                        <DropdownMenuItem>Deaktivieren</DropdownMenuItem>
+                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                        <DropdownMenuItem>Adjust Settings</DropdownMenuItem>
+                        <DropdownMenuItem>Disable</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -196,7 +196,7 @@ export default function OptimizationPage() {
         >
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Optimierungsplan</CardTitle>
+              <CardTitle>Optimization Schedule</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -231,7 +231,7 @@ export default function OptimizationPage() {
         >
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Energieeinsparungsprognose</CardTitle>
+              <CardTitle>Energy Savings Forecast</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px] w-full">
@@ -257,7 +257,7 @@ export default function OptimizationPage() {
                       dataKey="actual"
                       fill="#3b82f6"
                       stroke="#3b82f6"
-                      name="Aktuell"
+                      name="Actual"
                       fillOpacity={0.3}
                     />
                     <Area
@@ -266,14 +266,14 @@ export default function OptimizationPage() {
                       dataKey="forecast"
                       fill="#22c55e"
                       stroke="#22c55e"
-                      name="Prognose"
+                      name="Forecast"
                       fillOpacity={0.3}
                     />
                     <Bar
                       yAxisId="left"
                       dataKey="savings"
                       fill="#8b5cf6"
-                      name="Einsparungen"
+                      name="Savings"
                       opacity={0.8}
                     />
                     <Line
@@ -281,7 +281,7 @@ export default function OptimizationPage() {
                       type="monotone"
                       dataKey="efficiency"
                       stroke="#f59e0b"
-                      name="Effizienz"
+                      name="Efficiency"
                       strokeWidth={2}
                     />
                   </ComposedChart>
@@ -290,15 +290,15 @@ export default function OptimizationPage() {
               <div className="mt-6 grid grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <p className="text-2xl font-bold text-green-500">45%</p>
-                  <p className="text-sm text-muted-foreground">Tagesziel</p>
+                  <p className="text-sm text-muted-foreground">Daily Target</p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-500">€1.234</p>
-                  <p className="text-sm text-muted-foreground">Monatliche Einsparungen</p>
+                  <p className="text-2xl font-bold text-blue-500">€1,234</p>
+                  <p className="text-sm text-muted-foreground">Monthly Savings</p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <p className="text-2xl font-bold text-purple-500">92%</p>
-                  <p className="text-sm text-muted-foreground">Effizienz</p>
+                  <p className="text-sm text-muted-foreground">Efficiency</p>
                 </div>
               </div>
             </CardContent>
