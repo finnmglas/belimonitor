@@ -11,7 +11,8 @@ import {
   Bell,
   User,
   LogOut,
-  Settings2
+  Settings2,
+  Gauge
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -24,6 +25,7 @@ import {
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Belimo Optimize', href: '/belimo-optimize', icon: Gauge },
   { name: 'Analytics', href: '/analytics', icon: BarChart2 },
   { name: 'Buildings', href: '/buildings', icon: Building2 },
   { name: 'Monitoring', href: '/monitoring', icon: Activity },
@@ -100,18 +102,18 @@ export default function Header() {
                 </motion.button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-72">
-                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuLabel>Benachrichtigungen</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <div className="flex flex-col">
-                    <span className="font-medium">Energy Usage Alert</span>
-                    <span className="text-xs text-muted-foreground">Building A exceeded threshold</span>
+                    <span className="font-medium">Energieverbrauch Warnung</span>
+                    <span className="text-xs text-muted-foreground">Gebäude A überschreitet Grenzwert</span>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <div className="flex flex-col">
-                    <span className="font-medium">Optimization Complete</span>
-                    <span className="text-xs text-muted-foreground">HVAC schedule updated</span>
+                    <span className="font-medium">Optimierung abgeschlossen</span>
+                    <span className="text-xs text-muted-foreground">HVAC Zeitplan aktualisiert</span>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -129,20 +131,20 @@ export default function Header() {
                 </motion.button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>Mein Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  Profile
+                  Profil
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Settings2 className="mr-2 h-4 w-4" />
-                  Settings
+                  Einstellungen
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-red-600">
                   <LogOut className="mr-2 h-4 w-4" />
-                  Logout
+                  Abmelden
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

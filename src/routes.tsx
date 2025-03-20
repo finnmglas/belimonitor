@@ -9,6 +9,7 @@ import BuildingsPage from './pages/buildings';
 import MonitoringPage from './pages/monitoring';
 import OptimizationPage from './pages/optimization';
 import SettingsPage from './pages/settings';
+import BelimoOptimizePage from './pages/belimo-optimize';
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <IndexPage />,
+      },
+      {
+        path: 'belimo-optimize',
+        element: <BelimoOptimizePage />,
       },
       {
         path: 'analytics',
