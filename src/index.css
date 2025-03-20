@@ -50,7 +50,7 @@
 }
 
 .glass-effect {
-  @apply bg-white/80 backdrop-blur-sm border border-white/20;
+  @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-sm;
 }
 
 .animate-in {
