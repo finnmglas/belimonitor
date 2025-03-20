@@ -13,42 +13,43 @@ interface OptimizationItem {
   isPremium?: boolean;
 }
 
+// Assuming 0.4 kg CO2 per kWh for calculation
 const optimizations: OptimizationItem[] = [
   {
     id: '1',
     priority: 'high',
-    problem: 'Unnecessary heating at night',
-    location: 'Building A, Room 203',
-    co2Savings: '480 kg/month',
-    costSavings: '€250/month',
+    problem: 'HVAC System Optimization Required',
+    location: 'Main Building, Floors 1-3',
+    co2Savings: '6,400 kg/month',
+    costSavings: '€4,000/month',
     optimizationPotential: 85,
   },
   {
     id: '2',
     priority: 'medium',
-    problem: 'Excess temperature on weekends',
-    location: 'Building B, Room 5',
-    co2Savings: '240 kg/month',
-    costSavings: '€120/month',
+    problem: 'Excess Heating in Restaurant Area',
+    location: 'Restaurant & Bar, Ground Floor',
+    co2Savings: '3,200 kg/month',
+    costSavings: '€2,000/month',
     optimizationPotential: 65,
   },
   {
     id: '3',
     priority: 'low',
-    problem: 'Inefficient ventilation',
-    location: 'Building C, Hall 2',
-    co2Savings: '120 kg/month',
-    costSavings: '€80/month',
+    problem: 'Spa Area Temperature Control',
+    location: 'Spa & Wellness Center',
+    co2Savings: '1,600 kg/month',
+    costSavings: '€1,000/month',
     optimizationPotential: 35,
     isPremium: true,
   },
   {
     id: '4',
     priority: 'low',
-    problem: 'Lighting optimization',
-    location: 'Building A, Corridor',
-    co2Savings: '100 kg/month',
-    costSavings: '€65/month',
+    problem: 'Conference Room Climate Control',
+    location: 'Business Center, Floor 2',
+    co2Savings: '800 kg/month',
+    costSavings: '€500/month',
     optimizationPotential: 25,
     isPremium: true,
   },
@@ -186,7 +187,7 @@ export default function OptimizationTable() {
             Unlock Premium Features
           </h3>
           <p className="text-gray-600 mb-4">
-            Access full optimization potential and save up to 40% more energy & costs!
+            Access full optimization potential and save up to 22% more energy & costs!
           </p>
           <div className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-full font-medium cursor-pointer hover:from-blue-600 hover:to-green-600 transition-all">
             <span>€0 + 15% of optimization savings</span>

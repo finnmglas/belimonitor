@@ -8,6 +8,9 @@ import { useState } from 'react';
 export default function BelimoOptimizePage() {
   const [showModal, setShowModal] = useState(false);
 
+  // Total monthly savings based on the provided data
+  // Annual savings: €28,000 – €92,000 -> Taking average: €60,000/year -> €5,000/month
+  // CO2 savings calculated based on energy savings and average CO2 emissions per kWh
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       <motion.div
@@ -26,14 +29,14 @@ export default function BelimoOptimizePage() {
               <p className="text-sm text-gray-500">Monthly CO₂ Savings</p>
               <div className="flex items-center justify-end mt-1">
                 <Leaf className="w-5 h-5 text-green-500 mr-2" />
-                <p className="text-2xl font-bold text-green-500">940 kg</p>
+                <p className="text-2xl font-bold text-green-500">12,000 kg</p>
               </div>
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-500">Monthly Cost Savings</p>
               <div className="flex items-center justify-end mt-1">
                 <DollarSign className="w-5 h-5 text-green-500 mr-2" />
-                <p className="text-2xl font-bold text-green-500">€515</p>
+                <p className="text-2xl font-bold text-green-500">€7,500</p>
               </div>
             </div>
           </div>
