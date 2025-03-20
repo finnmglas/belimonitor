@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SystemDiagram from '@/components/monitoring/SystemDiagram';
 
 const sensors = [
   { id: 1, name: 'Temperature', value: '22°C', status: 'normal', icon: Thermometer, color: 'text-red-500' },
@@ -67,9 +68,9 @@ export default function MonitoringPage() {
                         <AlertTriangle className="w-4 h-4 text-muted-foreground" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
-                        <DropdownMenuItem>Set Alert</DropdownMenuItem>
-                        <DropdownMenuItem>Configure</DropdownMenuItem>
+                        <DropdownMenuItem>Details anzeigen</DropdownMenuItem>
+                        <DropdownMenuItem>Alarm einstellen</DropdownMenuItem>
+                        <DropdownMenuItem>Konfigurieren</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -97,7 +98,7 @@ export default function MonitoringPage() {
         >
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Real-time Monitoring</CardTitle>
+              <CardTitle>Echtzeit-Überwachung</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -120,7 +121,7 @@ export default function MonitoringPage() {
 
           <Card className="card-hover-effect">
             <CardHeader>
-              <CardTitle>Alerts History</CardTitle>
+              <CardTitle>Alarm-Historie</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -134,9 +135,9 @@ export default function MonitoringPage() {
                   >
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                      <span>Temperature Alert</span>
+                      <span>Temperatur-Alarm</span>
                     </div>
-                    <span className="text-sm text-muted-foreground">2h ago</span>
+                    <span className="text-sm text-muted-foreground">vor 2h</span>
                   </motion.div>
                 ))}
               </div>
@@ -151,11 +152,19 @@ export default function MonitoringPage() {
         >
           <Card className="card-hover-effect h-full">
             <CardHeader>
-              <CardTitle>System Overview</CardTitle>
+              <CardTitle>Systemübersicht</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[500px] bg-gray-50 rounded-lg flex items-center justify-center">
-                System Diagram
+              <SystemDiagram />
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm font-medium text-muted-foreground">Gesamtauslastung</p>
+                  <p className="text-lg font-bold text-blue-500">72%</p>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm font-medium text-muted-foreground">Aktive Systeme</p>
+                  <p className="text-lg font-bold text-green-500">6/7</p>
+                </div>
               </div>
             </CardContent>
           </Card>
