@@ -17,20 +17,20 @@ export default function BelimoOptimizePage() {
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Belimo Optimize</h1>
             <p className="text-gray-500 mt-1">
-              Identifizierte Optimierungspotentiale und Handlungsempfehlungen
+              Identified optimization potential and recommended actions
             </p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="text-right">
-              <p className="text-sm text-gray-500">Gesamteinsparungspotential</p>
-              <p className="text-2xl font-bold text-green-500">450 €/Monat</p>
+              <p className="text-sm text-gray-500">Total Savings Potential</p>
+              <p className="text-2xl font-bold text-green-500">€450/month</p>
             </div>
           </div>
         </div>
 
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Optimierungsvorschläge</CardTitle>
+            <CardTitle>Optimization Suggestions</CardTitle>
           </CardHeader>
           <CardContent>
             <OptimizationTable />

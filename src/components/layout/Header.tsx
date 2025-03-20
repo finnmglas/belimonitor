@@ -102,18 +102,18 @@ export default function Header() {
                 </motion.button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-72">
-                <DropdownMenuLabel>Benachrichtigungen</DropdownMenuLabel>
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <div className="flex flex-col">
-                    <span className="font-medium">Energieverbrauch Warnung</span>
-                    <span className="text-xs text-muted-foreground">Gebäude A überschreitet Grenzwert</span>
+                    <span className="font-medium">Energy Usage Alert</span>
+                    <span className="text-xs text-muted-foreground">Building A exceeded threshold</span>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <div className="flex flex-col">
-                    <span className="font-medium">Optimierung abgeschlossen</span>
-                    <span className="text-xs text-muted-foreground">HVAC Zeitplan aktualisiert</span>
+                    <span className="font-medium">Optimization Complete</span>
+                    <span className="text-xs text-muted-foreground">HVAC schedule updated</span>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -131,20 +131,20 @@ export default function Header() {
                 </motion.button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Mein Account</DropdownMenuLabel>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  Profil
+                  Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Settings2 className="mr-2 h-4 w-4" />
-                  Einstellungen
+                  Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-red-600">
                   <LogOut className="mr-2 h-4 w-4" />
-                  Abmelden
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

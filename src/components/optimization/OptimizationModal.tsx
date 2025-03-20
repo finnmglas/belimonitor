@@ -41,7 +41,7 @@ const OptimizationDetail: React.FC<OptimizationDetailProps> = ({
                 )}
                 <div className="ml-4 flex-1">
                   <p className="text-gray-900 font-medium">{suggestion.text}</p>
-                  <p className="text-sm text-green-600 mt-1">Einsparung: {suggestion.savings}</p>
+                  <p className="text-sm text-green-600 mt-1">Savings: {suggestion.savings}</p>
                 </div>
               </div>
             </motion.div>
@@ -50,13 +50,13 @@ const OptimizationDetail: React.FC<OptimizationDetailProps> = ({
           <div className="mt-6">
             <div className="p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg">
               <h4 className="font-medium text-gray-900 mb-2">
-                Weitere Optimierungsvorschläge freischalten
+                Unlock More Optimization Suggestions
               </h4>
               <p className="text-sm text-gray-600 mb-4">
-                Aktivieren Sie Premium und erhalten Sie Zugriff auf alle Optimierungsmöglichkeiten
+                Activate Premium to access all optimization possibilities
               </p>
               <button className="flex items-center justify-center w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-full hover:from-blue-600 hover:to-green-600 transition-all">
-                <span>Premium aktivieren</span>
+                <span>Activate Premium</span>
                 <ChevronRight className="w-4 h-4 ml-2" />
               </button>
             </div>
@@ -71,25 +71,25 @@ const OptimizationDetail: React.FC<OptimizationDetailProps> = ({
 export default function OptimizationModal() {
   return (
     <OptimizationDetail
-      title="Unnötiges Heizen in der Nacht stoppen"
-      description="Die Analyse zeigt, dass die Heizung nachts unnötig auf hoher Temperatur läuft. Dies führt zu erheblichen Energie- und Kostenverlusten."
+      title="Stop Unnecessary Heating at Night"
+      description="Analysis shows that heating is running unnecessarily at high temperature during night hours. This leads to significant energy and cost losses."
       suggestions={[
         {
-          text: "Temperatur nachts von 24°C auf 18°C reduzieren",
-          savings: "100 kg CO₂/Woche"
+          text: "Reduce temperature at night from 24°C to 18°C",
+          savings: "100 kg CO₂/week"
         },
         {
-          text: "Timer von 19:00 bis 06:00 Uhr aktivieren",
-          savings: "20 kg CO₂/Woche"
+          text: "Activate timer from 7 PM to 6 AM",
+          savings: "20 kg CO₂/week"
         },
         {
-          text: "Intelligente Temperatursteuerung implementieren",
-          savings: "40 kg CO₂/Woche",
+          text: "Implement intelligent temperature control",
+          savings: "40 kg CO₂/week",
           isPremium: true
         },
         {
-          text: "Zonenbasierte Heizungssteuerung einrichten",
-          savings: "35 kg CO₂/Woche",
+          text: "Set up zone-based heating control",
+          savings: "35 kg CO₂/week",
           isPremium: true
         }
       ]}
