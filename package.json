@@ -10,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@shadcn/ui": "^0.0.4",
     "@vitejs/plugin-react-swc": "^3.8.1",
-    "lucide-react": "^0.284.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.5.0",
+    "lucide-react": "^0.483.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
+    "tailwind-merge": "^3.0.2",
     "vite-plugin-pwa": "^0.21.1"
   },
   "devDependencies": {

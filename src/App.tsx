@@ -1,14 +1,22 @@
 import { Outlet } from 'react-router-dom';
-import { Header } from './components/layout/Header';
+import { motion, AnimatePresence } from 'framer-motion';
+import Header from './components/layout/Header';
 import './App.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-4">
-        <Outlet />
-      </main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="pt-16 min-h-screen"
+        >
+          <Outlet />
+        </motion.main>
+      </AnimatePresence>
     </div>
   );
 }
