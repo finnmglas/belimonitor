@@ -23,6 +23,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 180,
+      color: '#1f2937',
     },
   },
   {
@@ -37,6 +38,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 150,
+      color: '#1f2937',
     },
   },
   {
@@ -51,6 +53,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 150,
+      color: '#1f2937',
     },
   },
   {
@@ -65,6 +68,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 150,
+      color: '#1f2937',
     },
   },
   {
@@ -79,6 +83,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 150,
+      color: '#1f2937',
     },
   },
   {
@@ -93,6 +98,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 150,
+      color: '#1f2937',
     },
   },
   {
@@ -108,6 +114,7 @@ const initialNodes = [
       borderRadius: '8px',
       padding: '10px',
       width: 180,
+      color: '#1f2937',
     },
   },
 ];
@@ -180,7 +187,7 @@ export default function SystemDiagram() {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '500px' }}>
+    <div style={{ width: '100%', height: '500px', background: 'white' }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -196,7 +203,7 @@ export default function SystemDiagram() {
           nodeColor="#fff"
           nodeBorderRadius={8}
         />
-        <Background color="#aaa" gap={16} />
+        <Background color="#f1f5f9" gap={16} />
       </ReactFlow>
     </div>
   );
