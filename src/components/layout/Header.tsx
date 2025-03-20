@@ -7,8 +7,20 @@ import {
   Settings,
   BarChart2,
   Activity,
-  Zap
+  Zap,
+  Bell,
+  User,
+  LogOut,
+  Settings2
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -16,7 +28,6 @@ const navigation = [
   { name: 'Buildings', href: '/buildings', icon: Building2 },
   { name: 'Monitoring', href: '/monitoring', icon: Activity },
   { name: 'Optimization', href: '/optimization', icon: Zap },
-  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 export default function Header() {
@@ -26,10 +37,10 @@ export default function Header() {
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b"
+      className="fixed top-0 left-0 right-0 z-50 glass-effect"
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
               <motion.div
@@ -42,7 +53,7 @@ export default function Header() {
             </Link>
           </div>
           
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-2">
             {navigation.map((item) => {
               const isActive = location.pathname === item.href;
               const Icon = item.icon;
@@ -52,12 +63,12 @@ export default function Header() {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    'relative px-3 py-1.5 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-full',
+                    'relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-full hover:bg-primary/5',
                     isActive ? 'text-primary' : 'text-muted-foreground'
                   )}
                 >
                   <motion.div
-                    className="flex items-center space-x-1"
+                    className="flex items-center space-x-2"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -75,6 +86,66 @@ export default function Header() {
                 </Link>
               );
             })}
+
+            {/* Notifications Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative p-2 text-muted-foreground hover:text-primary rounded-full hover:bg-primary/5"
+                >
+                  <Bell size={20} />
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+                </motion.button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <div className="flex flex-col">
+                    <span className="font-medium">Energy Usage Alert</span>
+                    <span className="text-xs text-muted-foreground">Building A exceeded threshold</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <div className="flex flex-col">
+                    <span className="font-medium">Optimization Complete</span>
+                    <span className="text-xs text-muted-foreground">HVAC schedule updated</span>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* User Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 text-muted-foreground hover:text-primary rounded-full hover:bg-primary/5"
+                >
+                  <User size={20} />
+                </motion.button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <User className="mr-2 h-4 w-4" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings2 className="mr-2 h-4 w-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </nav>

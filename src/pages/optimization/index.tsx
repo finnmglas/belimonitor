@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/Card';
-import { Zap, TrendingUp, Clock, Battery } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Zap, TrendingUp, Clock, Battery, MoreVertical } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const optimizations = [
   {
@@ -10,6 +16,7 @@ const optimizations = [
     status: 'active',
     nextAction: 'Temperature adjustment at 18:00',
     icon: Zap,
+    color: 'text-blue-500',
   },
   {
     id: 2,
@@ -18,6 +25,7 @@ const optimizations = [
     status: 'pending',
     nextAction: 'Dim lights in 30 minutes',
     icon: TrendingUp,
+    color: 'text-green-500',
   },
   {
     id: 3,
@@ -26,6 +34,7 @@ const optimizations = [
     status: 'active',
     nextAction: 'Load balancing in progress',
     icon: Clock,
+    color: 'text-purple-500',
   },
   {
     id: 4,
@@ -34,43 +43,69 @@ const optimizations = [
     status: 'charging',
     nextAction: 'Full charge in 2 hours',
     icon: Battery,
+    color: 'text-orange-500',
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
 export default function OptimizationPage() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 max-w-7xl mx-auto">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        variants={container}
+        initial="hidden"
+        animate="show"
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
       >
-        {optimizations.map((opt, index) => {
+        {optimizations.map((opt) => {
           const Icon = opt.icon;
           return (
-            <motion.div
-              key={opt.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card className="p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 bg-primary/10 rounded-full">
-                    <Icon className="w-6 h-6 text-primary" />
+            <motion.div key={opt.id} variants={item}>
+              <Card className="card-hover-effect">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`p-3 rounded-full bg-gray-100 ${opt.color}`}>
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="hover:bg-gray-100 p-2 rounded-full">
+                        <MoreVertical className="w-4 h-4 text-muted-foreground" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                        <DropdownMenuItem>Adjust Settings</DropdownMenuItem>
+                        <DropdownMenuItem>Disable</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
-                  <span className="text-green-500 font-medium">{opt.savings}</span>
-                </div>
-                <h3 className="font-semibold">{opt.title}</h3>
-                <p className="text-sm text-muted-foreground mt-2">{opt.nextAction}</p>
-                <div className="mt-4 flex items-center">
-                  <div className={`w-2 h-2 rounded-full ${
-                    opt.status === 'active' ? 'bg-green-500' :
-                    opt.status === 'pending' ? 'bg-yellow-500' :
-                    'bg-blue-500'
-                  }`} />
-                  <span className="ml-2 text-sm capitalize">{opt.status}</span>
-                </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">{opt.title}</p>
+                    <h3 className="text-2xl font-bold mt-2">{opt.savings}</h3>
+                    <p className="text-sm text-muted-foreground mt-2">{opt.nextAction}</p>
+                  </div>
+                  <div className="mt-4 flex items-center">
+                    <div className={`w-2 h-2 rounded-full ${
+                      opt.status === 'active' ? 'bg-green-500' :
+                      opt.status === 'pending' ? 'bg-yellow-500' :
+                      'bg-blue-500'
+                    }`} />
+                    <span className="ml-2 text-sm capitalize">{opt.status}</span>
+                  </div>
+                </CardContent>
               </Card>
             </motion.div>
           );
@@ -83,25 +118,33 @@ export default function OptimizationPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Optimization Schedule</h3>
-            <div className="space-y-4">
-              {optimizations.map((opt) => (
-                <div key={opt.id} className="flex items-center justify-between p-3 bg-muted/10 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <opt.icon className="w-5 h-5 text-primary" />
-                    <div>
-                      <p className="font-medium">{opt.title}</p>
-                      <p className="text-sm text-muted-foreground">{opt.nextAction}</p>
+          <Card className="card-hover-effect">
+            <CardHeader>
+              <CardTitle>Optimization Schedule</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {optimizations.map((opt) => (
+                  <motion.div
+                    key={opt.id}
+                    whileHover={{ scale: 1.02 }}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <opt.icon className={`w-5 h-5 ${opt.color}`} />
+                      <div>
+                        <p className="font-medium">{opt.title}</p>
+                        <p className="text-sm text-muted-foreground">{opt.nextAction}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium text-green-500">{opt.savings}</p>
-                    <p className="text-sm text-muted-foreground capitalize">{opt.status}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+                    <div className="text-right">
+                      <p className="font-medium text-green-500">{opt.savings}</p>
+                      <p className="text-sm text-muted-foreground capitalize">{opt.status}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
           </Card>
         </motion.div>
 
@@ -110,27 +153,35 @@ export default function OptimizationPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Energy Savings Forecast</h3>
-            <div className="space-y-6">
-              <div className="h-[200px] bg-muted/20 rounded-lg flex items-center justify-center">
-                Forecast Chart
+          <Card className="card-hover-effect">
+            <CardHeader>
+              <CardTitle>Energy Savings Forecast</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="h-[200px] bg-gray-50 rounded-lg flex items-center justify-center">
+                  Forecast Chart
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { label: 'Daily Target', value: '45%', color: 'text-green-500' },
+                    { label: 'Monthly Savings', value: '€1,234', color: 'text-blue-500' },
+                    { label: 'Efficiency', value: '92%', color: 'text-purple-500' },
+                  ].map((stat, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 + (i * 0.1) }}
+                      className="text-center p-4 bg-gray-50 rounded-lg"
+                    >
+                      <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-green-500">45%</p>
-                  <p className="text-sm text-muted-foreground">Daily Target</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-blue-500">€1,234</p>
-                  <p className="text-sm text-muted-foreground">Monthly Savings</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-purple-500">92%</p>
-                  <p className="text-sm text-muted-foreground">Efficiency</p>
-                </div>
-              </div>
-            </div>
+            </CardContent>
           </Card>
         </motion.div>
       </div>
