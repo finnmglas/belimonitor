@@ -1,11 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import './App.css'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App'
+import './index.css'
+import Dashboard from './pages/index'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Dashboard />,
+      },
+    ],
+  },
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

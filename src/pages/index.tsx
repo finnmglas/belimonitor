@@ -1,61 +1,18 @@
-import { useState } from 'react';
-import { AreaChart, Card, Title } from '@tremor/react';
 import { Leaf, DollarSign, BarChart3, Building2 } from 'lucide-react';
-import { MetricCard } from '../components/dashboard/MetricCard';
-import { OptimizationTable } from '../components/dashboard/OptimizationTable';
-import { OptimizationModal } from '../components/dashboard/OptimizationModal';
-import { SustainabilityCertificate } from '../components/dashboard/SustainabilityCertificate';
 
-// Mock data - replace with actual API data later
-const co2Data = [
-  { date: '2023-01', 'CO2 Reduction': 2400 },
-  { date: '2023-02', 'CO2 Reduction': 2800 },
-  { date: '2023-03', 'CO2 Reduction': 3200 },
-  { date: '2023-04', 'CO2 Reduction': 3000 },
-  { date: '2023-05', 'CO2 Reduction': 3500 },
-  { date: '2023-06', 'CO2 Reduction': 3700 },
-];
-
-const optimizations = [
-  {
-    id: '1',
-    priority: 'high',
-    problem: 'Unnecessary heating at night',
-    location: 'Building A, room 203',
-    co2Savings: '120 kg/week',
-    costSavings: '250 €/month',
-  },
-  {
-    id: '2',
-    priority: 'medium',
-    problem: 'Excess temperature at weekend',
-    location: 'Building B, room 5',
-    co2Savings: '60 kg/week',
-    costSavings: '120 €/month',
-  },
-  {
-    id: '3',
-    priority: 'low',
-    problem: 'Inefficient ventilation',
-    location: 'Building C, Hall 2',
-    co2Savings: '30 kg/week',
-    costSavings: '80 €/month',
-    isPremium: true,
-  },
-] as const;
+const MetricCard = ({ title, value, icon }: { title: string; value: string; icon: React.ReactNode }) => (
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+    <div className="flex items-center justify-between">
+      <div className="text-gray-500 dark:text-gray-400">{title}</div>
+      <div className="text-green-600 dark:text-green-400">{icon}</div>
+    </div>
+    <div className="mt-2">
+      <div className="text-2xl font-semibold text-gray-900 dark:text-white">{value}</div>
+    </div>
+  </div>
+);
 
 export default function Dashboard() {
-  const [selectedOptimization, setSelectedOptimization] = useState<string | null>(null);
-  
-  const handleOptimize = (id: string) => {
-    setSelectedOptimization(id);
-  };
-
-  const handlePremiumClick = () => {
-    // Implement premium upgrade flow
-    console.log('Premium clicked');
-  };
-
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="mb-8">
@@ -69,19 +26,16 @@ export default function Dashboard() {
         <MetricCard
           title="Monthly CO2 Reduction"
           value="3,700 kg"
-          trend={{ value: 5.7, isPositive: true }}
           icon={<Leaf className="w-6 h-6" />}
         />
         <MetricCard
           title="Cost Savings"
           value="€2,300"
-          trend={{ value: 12, isPositive: true }}
           icon={<DollarSign className="w-6 h-6" />}
         />
         <MetricCard
           title="Ecological Score"
           value="28% Better"
-          trend={{ value: 28, isPositive: true }}
           icon={<BarChart3 className="w-6 h-6" />}
         />
         <MetricCard
@@ -91,61 +45,54 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* CO2 Reduction Chart */}
-      <Card className="mb-8">
-        <Title>CO2 Reduction Trend</Title>
-        <AreaChart
-          className="h-72 mt-4"
-          data={co2Data}
-          index="date"
-          categories={['CO2 Reduction']}
-          colors={['green']}
-          valueFormatter={(number: number) => `${number.toLocaleString()} kg`}
-        />
-      </Card>
-
-      {/* Optimizations */}
-      <div className="mb-8">
+      {/* Simple Table */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
           Optimization Recommendations
         </h2>
-        <OptimizationTable
-          optimizations={optimizations}
-          onOptimize={handleOptimize}
-          onPremiumClick={handlePremiumClick}
-        />
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-800">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Priority</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Problem</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Location</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                    High
+                  </span>
+                </td>
+                <td className="px-6 py-4">Unnecessary heating at night</td>
+                <td className="px-6 py-4">Building A, room 203</td>
+                <td className="px-6 py-4">
+                  <button className="text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded-md text-sm font-medium">
+                    Optimize now
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
+                    Medium
+                  </span>
+                </td>
+                <td className="px-6 py-4">Excess temperature at weekend</td>
+                <td className="px-6 py-4">Building B, room 5</td>
+                <td className="px-6 py-4">
+                  <button className="text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded-md text-sm font-medium">
+                    Optimize now
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      {/* Sustainability Certificate */}
-      <div className="mb-8">
-        <SustainabilityCertificate
-          currentLevel="silver"
-          progress={88}
-          onDownload={() => console.log('Download certificate')}
-        />
-      </div>
-
-      {/* Optimization Modal */}
-      {selectedOptimization && (
-        <OptimizationModal
-          isOpen={!!selectedOptimization}
-          onClose={() => setSelectedOptimization(null)}
-          optimization={{
-            title: 'Stop unnecessary heating at night',
-            description: 'The heating system continues to operate at full capacity during nighttime hours when the building is unoccupied.',
-            suggestions: [
-              {
-                text: 'Reduce temperature at night from 24°C to 18°C',
-                savings: 'Saving: 100 kg CO2/week',
-              },
-              {
-                text: 'Activate timer from 7 pm to 6 am',
-                savings: 'Saving: 20 kg CO2/week',
-              },
-            ],
-          }}
-        />
-      )}
     </div>
   );
 }
