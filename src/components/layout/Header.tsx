@@ -19,7 +19,7 @@ const navigation = [
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
-export default function Header() {
+const Header = () => {
   const location = useLocation();
 
   return (
@@ -80,4 +80,6 @@ export default function Header() {
       </nav>
     </motion.header>
   );
-}
+};
+
+export default Header;
