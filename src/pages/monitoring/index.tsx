@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Thermometer, Droplets, Wind, Sun, AlertTriangle } from 'lucide-react';
+import { Thermometer, Droplets, Wind, Sun, AlertTriangle, AlertOctagon } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,10 +23,38 @@ const getStatusColor = (status: string) => {
       return 'bg-yellow-500';
     case 'optimal':
       return 'bg-blue-500';
+    case 'critical':
+      return 'bg-red-500';
     default:
       return 'bg-gray-500';
   }
 };
+const criticalAlerts = [
+  {
+    type: 'Temperature Alert',
+    location: 'Conference Room A',
+    value: '27°C',
+    threshold: '24°C',
+    status: 'critical',
+    message: 'Temperature exceeds comfort threshold',
+    icon: Thermometer,
+    color: 'text-red-500',
+    bgColor: 'bg-red-50',
+    time: '10 minutes ago'
+  },
+  {
+    type: 'Air Quality Warning',
+    location: 'Restaurant Area',
+    value: 'Poor',
+    threshold: 'Fair',
+    status: 'warning',
+    message: 'CO2 levels above recommended range',
+    icon: Wind,
+    color: 'text-yellow-500',
+    bgColor: 'bg-yellow-50',
+    time: '25 minutes ago'
+  }
+];
 
 const container = {
   hidden: { opacity: 0 },
@@ -88,6 +116,64 @@ export default function MonitoringPage() {
         })}
       </motion.div>
 
+      {/* Critical Alerts Section */}
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <Card className="border-red-100">
+          <CardHeader>
+            <CardTitle className="flex items-center text-red-600">
+              <AlertOctagon className="w-5 h-5 mr-2" />
+              Critical Conditions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {criticalAlerts.map((alert, index) => {
+                const Icon = alert.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`p-4 ${alert.bgColor} rounded-lg border border-${alert.color.split('-')[1]}-100`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center">
+                        <Icon className={`w-5 h-5 ${alert.color} mr-3`} />
+                        <div>
+                          <h4 className="font-medium text-gray-900">{alert.type}</h4>
+                          <p className="text-sm text-gray-500">{alert.location}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+
+                <span className="text-sm text-muted-foreground">{alert.time}</span>
+                <p className={`text-sm ${alert.status === 'resolved' ? 'text-green-500' : 'text-yellow-500'}`}>
+                  {alert.status}
+                </p>
+                </div>
+                    </div>
+                    <div className="mt-3">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">Current Value:</span>
+                        <span className="font-medium">{alert.value}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm mt-1">
+                        <span className="text-gray-600">Threshold:</span>
+                        <span className="font-medium">{alert.threshold}</span>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-sm text-gray-600">{alert.message}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+
       <div className="grid gap-6 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -126,9 +212,9 @@ export default function MonitoringPage() {
             <CardContent>
               <div className="space-y-3">
                 {[
-                  { time: '2h ago', issue: 'Temperature Alert', location: 'Main Building' },
-                  { time: '4h ago', issue: 'Humidity Warning', location: 'Conference Room' },
-                  { time: '6h ago', issue: 'Air Quality Notice', location: 'Restaurant Area' }
+                                    { time: '2h ago', issue: 'Temperature Alert', location: 'Main Building', status: 'resolved' },
+                                    { time: '4h ago', issue: 'Humidity Warning', location: 'Conference Room', status: 'pending' },
+                                    { time: '6h ago', issue: 'Air Quality Notice', location: 'Restaurant Area', status: 'resolved' }
                 ].map((alert, i) => (
                   <motion.div
                     key={i}
@@ -138,8 +224,7 @@ export default function MonitoringPage() {
                     className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                      <div>
+                    <div className={`w-2 h-2 rounded-full ${alert.status === 'resolved' ? 'bg-green-500' : 'bg-yellow-500'}`} />                      <div>
                         <p className="font-medium">{alert.issue}</p>
                         <p className="text-sm text-gray-500">{alert.location}</p>
                       </div>
