@@ -13,9 +13,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon/**/*'],
       manifest: {
-        name: 'Altan',
-        short_name: 'Altan',
-        description: 'Altan Application',
+        name: 'BELIMOnitor',
+        short_name: 'BELIMOnitor',
+        description: 'BELIMOnitor Application',
         theme_color: '#000000',
         background_color: '#ffffff',
         display: 'standalone',

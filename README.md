@@ -1,4 +1,18 @@
-# Welcome to your Altan project
+# <p align="center"> BELIMOnitor - Digital Asset Monitization. </p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules
+Increase Belimo's Profits by optimizing client systems, saving costs and keeping a cut.
 
+Starting from the Data, do ML Inference, estimate potentials and notify Clients through the BELIMOnitor App & Dashboard.
+
+# <p align="center"> Who are we? </p>
+
+Passionate Hacker Team from KIT
+
+- Lorenz Kopp
+- Finn Glas
+- Leonie Hanke
+- Julius Kopp
+
+## <p align="center"> Point of Contact: </p>
+
+Talk to us :)
