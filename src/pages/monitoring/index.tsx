@@ -13,7 +13,6 @@ const sensors = [
   { id: 1, name: 'Temperature', value: '22°C', status: 'normal', icon: Thermometer, color: 'text-red-500' },
   { id: 2, name: 'Humidity', value: '45%', status: 'warning', icon: Droplets, color: 'text-blue-500' },
   { id: 3, name: 'Air Quality', value: 'Good', status: 'normal', icon: Wind, color: 'text-green-500' },
-  { id: 4, name: 'Solar Input', value: '850W', status: 'optimal', icon: Sun, color: 'text-yellow-500' },
 ];
 
 const getStatusColor = (status: string) => {
@@ -51,7 +50,7 @@ export default function MonitoringPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
         {sensors.map((sensor) => {
           const Icon = sensor.icon;

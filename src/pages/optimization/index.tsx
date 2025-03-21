@@ -49,15 +49,6 @@ const optimizations = [
     icon: Clock,
     color: 'text-purple-500',
   },
-  {
-    id: 4,
-    title: 'Battery Storage',
-    savings: '20%',
-    status: 'charging',
-    nextAction: 'Full charge in 2 hours',
-    icon: Battery,
-    color: 'text-orange-500',
-  },
 ];
 
 // Forecast data for the next 6 months
@@ -145,7 +136,7 @@ export default function OptimizationPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
         {optimizations.map((opt) => {
           const Icon = opt.icon;

@@ -50,7 +50,7 @@ export default function Header() {
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center"
               >
-                <span className="text-xl font-bold text-blue-600">BELIMO</span>
+                <span className="text-xl font-bold text-[#ff7c0e]">BELIMO</span>
                 <span className="text-xl font-medium text-gray-900">nitor</span>
               </motion.div>
             </Link>
@@ -66,8 +66,8 @@ export default function Header() {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    'relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-full hover:bg-primary/5',
-                    isActive ? 'text-primary' : 'text-muted-foreground'
+                    'relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-[#ff7c0e] rounded-full hover:bg-[#ff7c0e]/5',
+                    isActive ? 'text-[#ff7c0e]' : 'text-muted-foreground'
                   )}
                 >
                   <motion.div
@@ -81,7 +81,7 @@ export default function Header() {
                   {isActive && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-primary/10 rounded-full"
+                      className="absolute inset-0 bg-[#ff7c0e]/10 rounded-full"
                       initial={false}
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
@@ -96,7 +96,7 @@ export default function Header() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative p-2 text-muted-foreground hover:text-primary rounded-full hover:bg-primary/5"
+                  className="relative p-2 text-muted-foreground hover:text-[#ff7c0e] rounded-full hover:bg-primary/5"
                 >
                   <Bell size={20} />
                   <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
