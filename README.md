@@ -13,6 +13,10 @@ Passionate Hacker Team from KIT
 - Leonie Hanke
 - Julius Kopp
 
+# <p align="center"> Access the App </p>
+
+[![QR to BeliMonitor](https://webhook.zone/f14400004d444790817b8ed20000f144/belimo-gr?f=qr&url=belimonitor.vercel.app)](https://webhook.zone/f14400004d444790817b8ed20000f144/belimo-gr-click?r=belimonitor.vercel.app)
+
 ## <p align="center"> Point of Contact: </p>
 
 Talk to us :)
